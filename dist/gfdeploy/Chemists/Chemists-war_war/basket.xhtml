@@ -1,0 +1,62 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="body">
+            <h:form prependId="false">
+                <p:panel id="panel_basket">
+                  
+                    <p:dataTable var="medicbasket" value="#{mainMB.basketProduct}" style="width: auto">
+
+                        <p:column headerText="Name, Maker">  
+                            <h:outputText value="#{medicbasket.medic.name}, #{medicbasket.medic.maker}" />  
+                        </p:column>  
+
+                        <p:column headerText="Price of 1 piece, uah">  
+                            <h:outputText value="#{medicbasket.medic.price}"/>  
+                        </p:column>  
+
+                        <p:column headerText="Count">  
+                            <h:outputText value="#{medicbasket.count}" />  
+                        </p:column>  
+
+                        <p:column headerText="Summa">  
+                            <h:outputText value="#{medicbasket.summa}" />  
+                        </p:column>  
+
+                        <p:column style="width:40px">  
+<!--                            <h:panelGrid columns="3" styleClass="actions" cellpadding="2">  -->
+                                <!--                                update=":form:display" oncomplete="carDialog.show()"-->
+                                
+                                <p:commandButton  image="ui-icon-trash" title="Delete" onclick="confirmation.show()">  
+                                    <f:setPropertyActionListener value="#{medicbasket}" target="#{mainMB.curr_mb}" />  
+                                </p:commandButton>  
+<!--                            </h:panelGrid>  -->
+                        </p:column> 
+
+                    </p:dataTable>
+                   <span/><h:outputText id="summa" value="#{mainMB.summaBasket}" style="float: right; margin-left: 10px"/>
+                     <strong><h:outputLabel value="Total amount" style="float: right"/></strong>
+                     
+                                                    
+                    <p:confirmDialog message="Are you sure in deleting product from your basket?"  
+                                     header="Delete" widgetVar="confirmation" appendToBody="true"> 
+                        <p:commandButton value="OK" ajax="true" update="panel_basket summa" actionListener="#{mainMB.deleteProduct}" onclick="confirmation.hide()" style="float: right"/>
+                        <p:commandButton value="Cancel" onclick="confirmation.hide()" style="float: right" />                    
+                    </p:confirmDialog>
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+        <!--    </body>-->
+    </ui:composition>
+</html>

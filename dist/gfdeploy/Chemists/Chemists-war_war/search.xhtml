@@ -1,0 +1,38 @@
+<!--<?xml-stylesheet type="text/css" charset="utf-8" media="all" href="com.jsf/newcss.css"?>-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="body">
+            <h:form prependId="false" style="height: 100%" >
+                <p:panel id ="id_search">
+                    <p:dataGrid value="#{mainMB.lst_medic}" var="medicament"  
+                                paginator="true" 
+                                paginatorPosition="bottom"
+                                rows="4" 
+                                effect="true" columns="1" >
+                        <p:column>
+                            <strong><h:outputText value="#{medicament.name}, #{medicament.price} uah" style="float: left" /></strong>
+                            <h:outputLink value="info_medicines.xhtml" style="float: right" styleClass="ll">
+                                <p:commandButton value="more" ajax="false">
+                                  <f:setPropertyActionListener  target="#{mainMB.curr_medic}" value="#{medicament}" />  
+                                  </p:commandButton>
+                            </h:outputLink>
+                         
+                        </p:column>
+                    </p:dataGrid>
+
+                    
+                </p:panel>
+            </h:form>                         
+
+        </ui:define>
+
+    </ui:composition>
+</html>
+

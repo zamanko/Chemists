@@ -1,0 +1,61 @@
+<!--<?xml-stylesheet type="text/css" charset="utf-8" media="all" href="com.jsf/newcss.css"?>-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="body">
+            <h:form prependId="false" style="height: 100%" >
+                <p:panel id ="id_panel">
+                    <p:dataGrid value="#{mainMB.lstNews}" var="publication"  
+                                paginator="true" 
+                                paginatorPosition="bottom"
+                                rows="4" 
+                                effect="true" columns="1" >
+                        <p:column>
+                            <strong><h:outputText value="#{publication.title}" style="float: left" /></strong>
+                            <h:outputLink value="News_Comment.xhtml" style="float: right" styleClass="ll">
+                                <f:param name="id_news" value="#{publication.id}"/>
+                                <h:outputText value="more"/>
+                            </h:outputLink>
+                            <br></br>
+                            <h:outputText value="#{publication.text}..." style="float: left" escape="false"/>
+                            <c:if test="#{!mainMB.secretary}">
+                                <h:outputLink value="UpdateNews.xhtml">
+                                    <p:commandButton   ajax="false" image="ui-icon-pencil" title="Update" style="float: right">
+                                    </p:commandButton>
+                                    <f:param name="idnew" value="#{publication.id}"/>
+                                </h:outputLink>
+                                <p:commandButton title="Delete" ajax="true" onclick="confirmation.show()" image="ui-icon-trash" style="float: right; padding-right: 10px">
+                                    <f:setPropertyActionListener target="#{mainMB.id_pub}" value="#{publication.id}"/>
+                                </p:commandButton>
+                            </c:if>
+
+
+                            <br></br>
+                        </p:column>
+                    </p:dataGrid>
+
+                    <p:confirmDialog message="Are you sure you want to delete news?"  
+                                     header="Delete" widgetVar="confirmation" appendToBody="true"> 
+                        <p:commandButton value="Ok" ajax="true" actionListener="#{mainMB.delNews}" update="id_panel" onclick="confirmation.hide()" style="float: right"/>
+                        <p:commandButton value="Cancel" onclick="confirmation.hide()" style="float: right" />                    
+                    </p:confirmDialog>
+
+                    <c:if test="#{!mainMB.secretary}">
+                        <h:outputLink value="AddNews_Secret.xhtml">
+                            <p:button ajax="false" title="Add" value="Add news" image="ui-icon-plus" style="float: right"/>
+                        </h:outputLink>
+                    </c:if>
+                </p:panel>
+            </h:form>                         
+
+        </ui:define>
+
+    </ui:composition>
+</html>
+

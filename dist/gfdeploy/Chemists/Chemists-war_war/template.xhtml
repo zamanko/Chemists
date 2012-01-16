@@ -1,0 +1,133 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Chemist's Shop</title>
+        <h:outputStylesheet name="jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <p:scrollPanel style="width: auto; height:auto; border: none" scrollMode="native" >
+            <div id="div1">
+                <p:layout  style="height: 900px; border: none">  
+                    <p:layoutUnit position="north" style="height: 80px; border: none">  
+
+                        <p:panel id="headpanel" style="background-color: #CC0000 !important">
+
+                            <h:form>
+                                <c:if test="#{userManagedBean.currentUser==null}">
+
+                                    <p:lightBox widgetVar="login_box" iframe="false" width="450px" height="210px">  
+                                        <h:form>
+                                            <h:outputLink value="http://localhost:8080/Chemists-war/faces/users/Login.xhtml" 
+                                                          style="float: right; margin-right: 10px; margin-top: 10px"> 
+                                                <p:commandButton ajax="false" value="Login" style="float: right;"/>
+                                            </h:outputLink>  
+                                        </h:form>
+                                    </p:lightBox>
+                                    <p:lightBox iframe="false" width="620px" height="510px">  
+                                        <h:form>
+                                            <h:outputLink value="http://localhost:8080/Chemists-war/faces/users/UserRegistration.xhtml" 
+                                                          style="float: right; margin-right: 10px; margin-top: 10px"> 
+                                                <p:commandButton  ajax="false" value="Registration" style="float: right;" /> 
+                                            </h:outputLink> 
+                                        </h:form> 
+                                    </p:lightBox>
+
+                                </c:if>
+                            </h:form>
+                             <h:form>     
+                                 
+                            <c:if test="#{userManagedBean.currentUser!=null}">
+                                    <p/>
+                                    <br/>
+                                    <h:outputLink value="index.xhtml">
+                                        <p:commandButton  ajax="false" value="Logout" action="#{userManagedBean.logout}" style="float: right; margin-top: 20px"/> 
+                                    </h:outputLink>
+                                    <p/>
+                                    <h:outputText value="#{userManagedBean.hello}" style ="float: right; margin-top: 20px"/>
+                                
+                            </c:if>
+                                 </h:form>
+                            <!--                            <h:form>-->
+                            <div id="logotype">
+                                <h1><span style="font-size: 180%">Chemist's Shop</span></h1>
+                            </div>
+                            <!--                            </h:form>-->
+                        </p:panel>  
+
+                    </p:layoutUnit> 
+                    <p:layoutUnit position="west" style="height: 800px; border: none" size="240">
+                        <h:form>
+                            <p:menu style="width: auto">  
+                                <p:submenu label="Navigation">  
+                                    <p:menuitem value="Home page" url="index.xhtml" icon="ui-icon ui-icon-home"/>  
+                                    <!--                                    <p:menuitem url="index.xhtml" value="News" icon="ui-icon ui-icon-star"/>  -->
+                                    <p:menuitem url="medicines.xhtml" value="Medicines" icon="ui-icon ui-icon-document"/>
+                                    <p:menuitem url="equiment.xhtml" value="Medical Equipment" icon="ui-icon ui-icon-flag"/>
+                                    <p:menuitem url="aboutus.xhtml" value="About" icon="ui-icon ui-icon-gear"/>
+                                </p:submenu>  
+                            </p:menu> 
+                            <p:panel>
+                                <p:button value="Add medicines" image="ui-icon-plus" outcome="add_medicines" rendered="#{userManagedBean.currentUser.roleuser=='2' or userManagedBean.currentUser.roleuser=='3'}"/>
+                                <p:button value="Add equipment" image="ui-icon-plus" outcome="add_medicines" rendered="#{userManagedBean.currentUser.roleuser=='2' or userManagedBean.currentUser.roleuser=='3'}"/>
+                                <p:button value="System's users" outcome="users_page" rendered="#{userManagedBean.currentUser.roleuser=='3'}"/>
+                            </p:panel>
+                        </h:form>
+                   </p:layoutUnit>  
+
+                    <p:layoutUnit position="center" style="height: 500px; border: none" size="800">  
+                        <h:form>
+                            <p:panel header="Find" style="font-size: 12px">
+
+                                <p:inputText value="#{mainMB.text}" onfocus="this.value=''" style="width: 70%"/>
+                                <p:separator style="display: none; height: 2px"/>
+                                <h:outputLink value="http://localhost:8080/Chemists-war/faces/search.xhtml">
+                                    <h:form>
+                                        <p:commandButton value="find" actionListener="#{mainMB.searchByName}" ajax="false"/>
+                                    </h:form>
+                                </h:outputLink>
+                            </p:panel>
+                        </h:form>
+                        <ui:insert name="body"/>
+                    </p:layoutUnit> 
+
+                    <p:layoutUnit position="east" style="height: 800px; border: none" size="240">  
+                        <h:form>
+                            <p:panel header="Basket" style="font-size: 12px" widgetVar="basket">
+
+                                <h:outputLabel value="Count products:"/>
+                                <h:outputText value="#{mainMB.countByBasket}"/>
+                                <p/>
+                                <h:outputLabel value="Summa:"/>
+                                <h:outputText value="#{mainMB.summaBasket}"/>
+                                <p:separator style="display: none; height: 2px"/>
+                                <p/>
+                                <p:button value="See basket" outcome="basket" disabled="#{userManagedBean.currentUser==null or userManagedBean.currentUser.roleuser=='3'}"/>
+
+                            </p:panel>
+                            <p:menu style="width: auto">  
+                                <p:submenu label="Work with site easy">  
+                                    <p:menuitem value="How to make order" url="makeorder.xhtml" icon="ui-icon ui-icon-star"/>  
+                                    <p:menuitem url="buyorder.xhtml" value="How to pay for order" icon="ui-icon ui-icon-star"/>
+                                    <p:menuitem url="delivery.xhtml" value="Delivery of order" icon="ui-icon ui-icon-star"/>
+                                </p:submenu>  
+                            </p:menu> 
+                            
+                           
+                        </h:form>
+                    </p:layoutUnit> 
+                </p:layout>
+            </div>
+        </p:scrollPanel>
+
+    </h:body>
+</html>

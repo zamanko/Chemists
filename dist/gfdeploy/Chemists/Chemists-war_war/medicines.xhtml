@@ -1,0 +1,68 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="body">
+            <h:form prependId="false">
+                <p:panel id="panel_medicines">
+
+
+                    <p:dataGrid value="#{medicinesmb.listMedicament}" var="medicament" columns="3"
+                                rows="9" paginator="true" id="lst"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                rowsPerPageTemplate="9,12,15">  
+
+                        <p:column>  
+                            <p:panel header="#{medicament.name}" style="text-align:center">  
+                                <h:panelGrid columns="1" style="width:100%">  
+                                    <!--                                <p:graphicImage value="/images/cars/{car.manufacturer}.jpg"/>   -->
+                                    <h:outputText value="#{medicament.price} uah" /> 
+
+
+                                    <h:outputLink  value="http://localhost:8080/Chemists-war/faces/info_medicines.xhtml" > 
+                                        <p:commandButton ajax="false" image="ui-icon-search">
+                                            <f:setPropertyActionListener  target="#{mainMB.curr_medic}" value="#{medicament}" />  
+                                        </p:commandButton>
+                                    </h:outputLink>
+
+
+                                    <!--                                    <p:commandLink update="info_medicines" title="View Detail">
+                                                                            <p:graphicImage value="/images/search.png"/> 
+                                                                             <f:setPropertyActionListener  target="{medicinesmb.curr_medic}" value="#medicament}" />  
+                                                                        </p:commandLink> -->
+                                    <p:commandButton ajax="false" title="Add to basket" image="ui-icon-plus" action="#{medicinesmb.addToBasket}" rendered="#{userManagedBean.currentUser!=null}">
+                                        <f:setPropertyActionListener  target="#{medicinesmb.medtobasket}" value="#{medicament}" />  
+                                    </p:commandButton>
+                                    <p:commandButton title="Delete" ajax="true" onclick="confirmation.show()" image="ui-icon-trash" rendered="#{userManagedBean.currentUser.roleuser=='2'}">
+                                        <f:setPropertyActionListener target="#{medicinesmb.medic_id}" value="#{medicament.id}"/>
+                                    </p:commandButton>
+
+                                </h:panelGrid>  
+
+
+                                <p:confirmDialog message="Are you sure in deleting this medicines?"  
+                                                 header="Delete" widgetVar="confirmation" appendToBody="true"> 
+                                    <p:commandButton value="OK" ajax="true" actionListener="#{medicinesmb.removeMedic}" update="panel_medicines" onclick="confirmation.hide()" style="float: right"/>
+                                    <p:commandButton value="Cancel" onclick="confirmation.hide()" style="float: right" />                    
+                                </p:confirmDialog>
+                            </p:panel>  
+                        </p:column>  
+                    </p:dataGrid>
+
+                  
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+        <!--    </body>-->
+    </ui:composition>
+</html>

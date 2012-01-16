@@ -1,0 +1,88 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="body">
+            <h:form prependId="false">
+                <p:panel id="panel_users">
+
+                    <p:dataTable var="users" value="#{mainMB.usersSystem}" style="width: auto">
+
+                        <p:column headerText="Role">  
+                            <h:outputText value="#{users.roleuser}"/>  
+                        </p:column>
+
+                        <p:column headerText="S.N.P.">  
+                            <h:outputText value="#{users.secname} #{users.name} #{users.patronymic}" />  
+                        </p:column>                          
+
+                        <p:column headerText="Email">  
+                            <h:outputText value="#{users.email}" />  
+                        </p:column>  
+
+                        <p:column headerText="Login">  
+                            <h:outputText value="#{users.login}" />  
+                        </p:column> 
+
+                        <p:column headerText="Password">  
+                            <h:outputText value="#{users.password}" />  
+                        </p:column>
+
+                        <p:column headerText="Phone">  
+                            <h:outputText value="#{users.phone}" />  
+                        </p:column>
+
+                        <p:column style="width:40px">  
+
+                            <p:commandButton  image="ui-icon-trash" title="Delete" onclick="confirmation.show()">  
+                                <f:setPropertyActionListener value="#{users}" target="#{mainMB.curr_users}" />  
+                            </p:commandButton>  
+                        </p:column> 
+
+                        <p:column>
+                            <p:lightBox iframe="false" width="620px" height="400px">  
+                                <h:form>
+                                    <h:outputLink value="http://localhost:8080/Chemists-war/faces/UserUpdate.xhtml"> 
+                                        <p:commandButton  ajax="false" image="ui-icon-pencil" style="float: right;">
+
+                                        </p:commandButton> 
+                                        <f:param  name="id_user" value="#{users.id}" />  
+                                    </h:outputLink> 
+                                </h:form> 
+                            </p:lightBox>
+                        </p:column>
+
+                    </p:dataTable>
+
+                     <p:lightBox iframe="false" width="620px" height="510px">  
+                                <h:form>
+                                    <h:outputLink value="http://localhost:8080/Chemists-war/faces/users/UserRegistration.xhtml"> 
+                                        <p:commandButton  ajax="false" image="ui-icon-plus" value="Add user" style="float: right;">
+
+                                        </p:commandButton> 
+<!--                                        <f:param  name="id_user" value="#{users.id}" />  -->
+                                    </h:outputLink> 
+                                </h:form> 
+                            </p:lightBox>
+
+                    <p:confirmDialog message="Are you sure in deleting this user from system?"  
+                                     header="Delete" widgetVar="confirmation" appendToBody="true"> 
+                        <p:commandButton value="OK" ajax="true" update="panel_users" actionListener="#{mainMB.deleteUser}" onclick="confirmation.hide()" style="float: right"/>
+                        <p:commandButton value="Cancel" onclick="confirmation.hide()" style="float: right" />                    
+                    </p:confirmDialog>
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+        <!--    </body>-->
+    </ui:composition>
+</html>
