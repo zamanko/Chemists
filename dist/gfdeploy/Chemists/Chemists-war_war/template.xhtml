@@ -8,10 +8,9 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.prime.com.tr/ui"
-
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-        <title>Chemist's Shop edited by zaman </title>
+        <title>Chemist's Shop</title>
         <h:outputStylesheet name="jsfcrud.css"/>
     </h:head>
     <h:body>
@@ -78,7 +77,7 @@ and open the template in the editor.
                             </p:menu> 
                             <p:panel>
                                 <p:button value="Add medicines" image="ui-icon-plus" outcome="add_medicines" rendered="#{userManagedBean.currentUser.roleuser=='2' or userManagedBean.currentUser.roleuser=='3'}"/>
-                                <p:button value="Add equipment" image="ui-icon-plus" outcome="add_medicines" rendered="#{userManagedBean.currentUser.roleuser=='2' or userManagedBean.currentUser.roleuser=='3'}"/>
+<!--                                <p:button value="Add equipment" image="ui-icon-plus" outcome="add_medicines" rendered="{userManagedBean.currentUser.roleuser=='2' or userManagedBean.currentUser.roleuser=='3'}"/>-->
                                 <p:button value="System's users" outcome="users_page" rendered="#{userManagedBean.currentUser.roleuser=='3'}"/>
                             </p:panel>
                         </h:form>
@@ -90,11 +89,9 @@ and open the template in the editor.
 
                                 <p:inputText value="#{mainMB.text}" onfocus="this.value=''" style="width: 70%"/>
                                 <p:separator style="display: none; height: 2px"/>
-                                <h:outputLink value="http://localhost:8080/Chemists-war/faces/search.xhtml">
-                                    <h:form>
+                            
                                         <p:commandButton value="find" actionListener="#{mainMB.searchByName}" ajax="false"/>
-                                    </h:form>
-                                </h:outputLink>
+                       
                             </p:panel>
                         </h:form>
                         <ui:insert name="body"/>

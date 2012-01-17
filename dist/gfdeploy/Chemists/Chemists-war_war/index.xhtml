@@ -24,12 +24,12 @@
                             </h:outputLink>
                             <br></br>
                             <h:outputText value="#{publication.text}..." style="float: left" escape="false"/>
-                            <c:if test="#{!mainMB.secretary}">
-                                <h:outputLink value="UpdateNews.xhtml">
-                                    <p:commandButton   ajax="false" image="ui-icon-pencil" title="Update" style="float: right">
-                                    </p:commandButton>
+                            <c:if test="#{userManagedBean.currentUser.roleuser=='2' or userManagedBean.currentUser.roleuser=='3'}">
+                              
+                                    <p:button outcome="UpdateNews" image="ui-icon-pencil" title="Update" style="float: right">
                                     <f:param name="idnew" value="#{publication.id}"/>
-                                </h:outputLink>
+                                    </p:button>
+                            
                                 <p:commandButton title="Delete" ajax="true" onclick="confirmation.show()" image="ui-icon-trash" style="float: right; padding-right: 10px">
                                     <f:setPropertyActionListener target="#{mainMB.id_pub}" value="#{publication.id}"/>
                                 </p:commandButton>
@@ -46,10 +46,8 @@
                         <p:commandButton value="Cancel" onclick="confirmation.hide()" style="float: right" />                    
                     </p:confirmDialog>
 
-                    <c:if test="#{!mainMB.secretary}">
-                        <h:outputLink value="AddNews_Secret.xhtml">
-                            <p:button ajax="false" title="Add" value="Add news" image="ui-icon-plus" style="float: right"/>
-                        </h:outputLink>
+                    <c:if test="#{userManagedBean.currentUser.roleuser=='2' or userManagedBean.currentUser.roleuser=='3'}">
+                        <p:button outcome="AddNews_Secret" value="Add news" image="ui-icon-plus"/>
                     </c:if>
                 </p:panel>
             </h:form>                         

@@ -17,19 +17,16 @@ and open the template in the editor.
               
                     <h:panelGrid   columns="2" cellpadding="10">
                         <h:outputLabel  value="Name: " style="font-weight: bold" /> 
-                        <h:outputText  value="#{mainMB.curr_medic.name}" />  
+                        <h:outputText  value="#{info_mb.curr_medic.name}" />  
 
                         <h:outputLabel  value="Maker: " style="font-weight: bold" />  
-                        <h:outputText  value="#{mainMB.curr_medic.maker}" />  
+                        <h:outputText  value="#{info_mb.curr_medic.maker}" />  
 
                         <h:outputLabel  value="Price: " style="font-weight: bold" />  
-                        <h:outputText  value="#{mainMB.curr_medic.price}" />  
-                        
-                        <h:outputLabel value="Presence:" style="font-weight: bold" />
-                        <h:outputText value="#{mainMB.present}"/>
+                        <h:outputText  value="#{info_mb.curr_medic.price}" />  
 
                         <h:outputLabel  value="Information: " style="font-weight: bold" />  
-                        <h:outputText  value="#{mainMB.curr_medic.information}" />  
+                        <h:outputText  value="#{info_mb.curr_medic.information}" />  
                     </h:panelGrid>  
                 </p:panel>
             </h:form>

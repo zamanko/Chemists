@@ -25,9 +25,7 @@ public class BasketService extends Generic<Basket> implements IBasketService {
         super(Basket.class);
     }
     
-    
-    
-    @Override
+   @Override
     protected EntityManager getEntityManager() {
         return em;
     }

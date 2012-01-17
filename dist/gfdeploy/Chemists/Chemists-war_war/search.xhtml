@@ -18,11 +18,13 @@
                                 effect="true" columns="1" >
                         <p:column>
                             <strong><h:outputText value="#{medicament.name}, #{medicament.price} uah" style="float: left" /></strong>
-                            <h:outputLink value="info_medicines.xhtml" style="float: right" styleClass="ll">
-                                <p:commandButton value="more" ajax="false">
-                                  <f:setPropertyActionListener  target="#{mainMB.curr_medic}" value="#{medicament}" />  
-                                  </p:commandButton>
-                            </h:outputLink>
+<!--                            <h:outputLink value="info_medicines.xhtml" style="float: right" styleClass="ll">-->
+<p:button  value="more"     outcome="info_medicines"  style="float: right" styleClass="ll"  >   
+<!--<p:commandButton value="more" ajax="false">-->
+<f:param  name="id_med" value="#{medicament.id}" />  
+<!--                                  </p:commandButton>-->
+</p:button>
+<!--                            </h:outputLink>-->
                          
                         </p:column>
                     </p:dataGrid>

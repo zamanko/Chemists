@@ -28,24 +28,22 @@ and open the template in the editor.
                                     <h:outputText value="#{medicament.price} uah" /> 
 
 
-                                    <h:outputLink  value="http://localhost:8080/Chemists-war/faces/info_medicines.xhtml" > 
-                                        <p:commandButton ajax="false" image="ui-icon-search">
-                                            <f:setPropertyActionListener  target="#{mainMB.curr_medic}" value="#{medicament}" />  
+                                    <p:panel >
+                                        <p:button image="ui-icon-search" outcome="info_medicines">
+                                            <f:param  name="id_med" value="#{medicament.id}" />  
+                                        </p:button>
+
+                                        <p:commandButton ajax="false" title="Add to basket" image="ui-icon-plus" action="#{medicinesmb.addToBasket}" rendered="#{userManagedBean.currentUser!=null}">
+                                            <f:setPropertyActionListener  target="#{medicinesmb.medtobasket}" value="#{medicament}" />  
                                         </p:commandButton>
-                                    </h:outputLink>
+                                        <p:commandButton title="Delete" ajax="true" onclick="confirmation.show()" image="ui-icon-trash" rendered="#{userManagedBean.currentUser.roleuser=='2'}">
+                                            <f:setPropertyActionListener target="#{medicinesmb.medic_id}" value="#{medicament.id}"/>
+                                        </p:commandButton>
+                                        <p:button image="ui-icon-pencil" outcome="update_medicines">
+                                            <f:param  name="id_med" value="#{medicament.id}" />  
+                                        </p:button>
 
-
-                                    <!--                                    <p:commandLink update="info_medicines" title="View Detail">
-                                                                            <p:graphicImage value="/images/search.png"/> 
-                                                                             <f:setPropertyActionListener  target="{medicinesmb.curr_medic}" value="#medicament}" />  
-                                                                        </p:commandLink> -->
-                                    <p:commandButton ajax="false" title="Add to basket" image="ui-icon-plus" action="#{medicinesmb.addToBasket}" rendered="#{userManagedBean.currentUser!=null}">
-                                        <f:setPropertyActionListener  target="#{medicinesmb.medtobasket}" value="#{medicament}" />  
-                                    </p:commandButton>
-                                    <p:commandButton title="Delete" ajax="true" onclick="confirmation.show()" image="ui-icon-trash" rendered="#{userManagedBean.currentUser.roleuser=='2'}">
-                                        <f:setPropertyActionListener target="#{medicinesmb.medic_id}" value="#{medicament.id}"/>
-                                    </p:commandButton>
-
+                                    </p:panel>
                                 </h:panelGrid>  
 
 
@@ -58,7 +56,7 @@ and open the template in the editor.
                         </p:column>  
                     </p:dataGrid>
 
-                  
+
                 </p:panel>
             </h:form>
 

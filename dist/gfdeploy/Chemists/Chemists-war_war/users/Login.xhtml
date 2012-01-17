@@ -28,15 +28,15 @@ and open the template in the editor.
                 <h:form>
                     <p:panel style="margin-bottom: 10px; border: #ffffff; margin-right: -17px">
                       
-                        <h:outputLink value="http://localhost:8080/RADAAPP-war/faces/index.xhtml"> 
-                             <h:form>
-                        <h:commandButton value="Cancel" style="float: right"/>
-                            </h:form>
-                        </h:outputLink>
+<!--                        <h:outputLink value="http://localhost:8080/Chemists-war/faces/index.xhtml"> 
+                             <h:form>-->
+                                 <p:button value="Cancel" outcome="/faces/index.xhtml" style="float: right"/>
+<!--                            </h:form>
+                        </h:outputLink>-->
                      
-                        <h:commandButton id="login" value="Login" action="#{userManagedBean.checkPasswd()}" style="float: right; margin-bottom: 50px">
+<p:commandButton  ajax="false" id="login" value="Login" action="#{userManagedBean.checkPasswd}" style="float: right; "/>
                            
-                        </h:commandButton>
+                        
                       
                     </p:panel>
                 </h:form>

@@ -5,12 +5,12 @@
 package control;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.Comment;
 import javax.validation.ConstraintViolationException;
+import model.Comment;
 import model.Publication;
 import model.Users;
 
